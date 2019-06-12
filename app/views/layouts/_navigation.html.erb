@@ -18,7 +18,7 @@
 
 </button>
 
-<%= link_to "Alpha blog", root_path, class: "navbar-brand", id: "logo" %>
+<%= link_to "NRG_Rate", root_path, class: "navbar-brand", id: "logo" %>
 
 </div>
 
@@ -28,11 +28,23 @@
 
 <ul class="nav navbar-nav">
 
-<li><%= link_to "Articles", articles_path %></li>
+
+
+
+<% if logged_in? and !current_user.admin?%>
+
+<li><%= link_to "Projects", user_path(current_user) %></li>
+
+<% end %>
+
+
+<% if logged_in? and current_user.admin? %>
+
+<li><%= link_to "Projects", articles_path %></li>
 
 <li><%= link_to "Users", users_path %></li>
+<% end %>
 
-<% if logged_in? %>
 
 <li class="dropdown">
 
@@ -40,7 +52,7 @@
 
 <ul class="dropdown-menu">
 
-<li><%= link_to "New Article", new_article_path %></li>
+<li><%= link_to "New Project", new_article_path %></li>
 
 <li><a href="#">Another action</a></li>
 
@@ -58,14 +70,17 @@
 
 </li>
 
-<% end %>
 
+<% if logged_in? and current_user.admin? %>
+
+<li><%= link_to "View your profile", user_path(current_user) %></li>
 
 <li class="dropdown">
 
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
 
 <ul class="dropdown-menu">
+  
 
 <li><%= link_to "All Categories", categories_path %></li>
 
@@ -73,9 +88,11 @@
 
 <li><%= link_to "#{category.name}", category_path(category) %></li>
 
+
 <% end %>
 
-<% if logged_in? and current_user.admin? %>
+
+
 
 <li role="separator" class="divider"></li>
 
@@ -115,7 +132,7 @@
 
 <li><%= link_to "Edit your profile", edit_user_path(current_user) %></li>
 
-<li><%= link_to "View your profile", user_path(current_user) %></li>
+
 
 <li><a href="#">Something else here</a></li>
 

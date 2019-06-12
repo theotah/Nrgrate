@@ -1,58 +1,160 @@
-<%= render 'shared/errors', obj: @user %>
+<%= render 'errors', obj: @user %>
+
+
 
 <div class='row'>
 
 <div class='col-xs-12'>
 
-<%= form_for(@user, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+    <%= form_for(@user, :html => {class: "form-horizontal", role: "form"}) do |f| %>
 
-<div class="form-group">
 
-<div class="control-label col-sm-2">
+        <div class="form-group">
 
-<%= f.label :username %>
+        <div class="control-label col-sm-2">
 
-</div>
+            <%= f.label :username, "Name" %>
 
-<div class="col-sm-8">
+        </div>
 
-<%= f.text_field :username, class: "form-control", placeholder: "Enter username", autofocus: true %>
+        <div class="col-sm-8">
 
-</div>
+            <%= f.text_field :username, class: "form-control", placeholder: "Enter your name", autofocus: true %>
 
-</div>
+        </div>  
 
-<div class="form-group">
+        </div>
 
-<div class="control-label col-sm-2">
 
-<%= f.label :email %>
 
-</div>
+    <div class="form-group">
 
-<div class="col-sm-8">
+        <div class="control-label col-sm-2">
 
-<%= f.email_field :email, class: "form-control", placeholder: "Enter email" %>
+            <%= f.label :company, "Business Name" %>
 
-</div>
+        </div>
 
-</div>
+        <div class="col-sm-8">
 
-<div class="form-group">
+            <%= f.text_field :company, class: "form-control", placeholder: "Enter your business name" %>
 
-<div class="control-label col-sm-2">
+        </div>
 
-<%= f.label :password %>
+        </div>
 
-</div>
 
-<div class="col-sm-8">
 
-<%= f.password_field :password, class: "form-control", placeholder: "Enter password" %>
 
-</div>
+    <div class="form-group">
 
-</div>
+    <div class="control-label col-sm-2">
+
+        <%= f.label :address, "Address" %>
+
+    </div>
+
+    <div class="col-sm-8">
+
+        <%= f.text_field :address, class: "form-control", placeholder: "Enter your business address" %>
+
+    </div>
+
+    </div>
+    
+    
+        <div class="form-group">
+
+    <div class="control-label col-sm-2">
+
+        <%= f.label :contact %>
+
+    </div>
+
+    <div class="col-sm-8">
+
+        <%= f.text_field :contact, class: "form-control", placeholder: "Enter phone number" %>
+
+    </div>
+
+    </div>
+    
+
+        <div class="form-group">
+
+        <div class="control-label col-sm-2">
+
+            <%= f.label :Profession %>
+
+        </div>
+
+        <div class="col-sm-8">
+
+            <%= f.text_field :Profession, class: "form-control", placeholder: "Enter your profession", autofocus: true %>
+
+        </div>  
+
+        </div>
+
+
+
+    <div class="form-group">
+
+        <div class="control-label col-sm-2">
+
+            <%= f.label :email %>
+
+        </div>
+
+        <div class="col-sm-8">
+
+            <%= f.email_field :email, class: "form-control", placeholder: "Enter email" %>
+
+        </div>
+
+        </div>
+
+
+
+    <div class="form-group">
+
+    <div class="control-label col-sm-2">
+
+        <%= f.label :password %>
+
+    </div>
+
+    <div class="col-sm-8">
+
+        <%= f.password_field :password, class: "form-control", placeholder: "Enter password" %>
+
+    </div>
+
+    </div>
+
+
+
+    <div class="form-group">
+
+    <div class="control-label col-sm-2">
+
+        <%= f.label :password_confirmation, "Confirmation" %>
+
+    </div>
+
+    <div class="col-sm-8">
+
+        <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password" %>
+
+    </div>
+
+    </div>
+
+
+
+
+
+
 
 <div class="form-group">
 
@@ -66,11 +168,23 @@
 
 <% end %>
 
-<div class="col-xs-4 col-xs-offset-4">
 
-[ <%= link_to "Cancel request and return to articles listing", articles_path %> ]
+
+
+<div class="col-xs-4 col-xs-offset-4">
+<% if logged_in? %>
+
+[ <%= link_to "Cancel request and return to project listing", user_path(current_user) %> ]
+
+<% else %>
+
+[ <%= link_to "Cancel request and return to home page", root_path %> ]
+
+<% end %>
 
 </div>
+
+
 
 </div>
 

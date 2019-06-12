@@ -18,6 +18,13 @@ uniqueness: { case_sensitive: false },
 
 format: { with: VALID_EMAIL_REGEX }
 
+validates :company, presence: true
+validates :address, presence: true
+validates :contact, presence: true
+validates :Profession, presence: true
+
 has_secure_password
+
+validates :password, length: { minimum: 6 }
 
 end

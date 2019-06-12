@@ -2,9 +2,14 @@ class UsersController < ApplicationController
 
 before_action :set_user, only: [:edit, :update, :show]
 
+before_action :require_user, except: [:new, :create]
+
 before_action :require_same_user, only: [:edit, :update, :destroy]
 
-before_action :require_admin, only: [:destroy]
+before_action :require_same_user2, only: [:show]
+
+
+before_action :require_admin, only: [:destroy, :index]
 
 def index
 
@@ -48,7 +53,7 @@ if @user.update(user_params)
 
 flash[:success] = "Your account was updated successfully"
 
-redirect_to articles_path
+redirect_to user_path
 
 else
 
@@ -80,7 +85,7 @@ private
 
 def user_params
 
-params.require(:user).permit(:username, :email, :password)
+params.require(:user).permit(:username, :email, :password, :password_confirmation, :company, :address, :contact, :Profession)
 
 end
 
@@ -102,11 +107,25 @@ end
 
 end
 
+def require_same_user2
+
+if current_user != @user and !current_user.admin?
+
+flash[:danger] = "You can only access your own account"
+
+redirect_to root_path
+
+end
+
+end
+
+
+
 def require_admin
 
 if logged_in? and !current_user.admin?
 
-flash[:danger] = "Only admin users can perform that action"
+flash[:danger] = "Only admin users can perform this action"
 
 redirect_to root_path
 

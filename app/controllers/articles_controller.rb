@@ -1,16 +1,27 @@
 class ArticlesController < ApplicationController
 
+before_action :require_user
+
 before_action :set_article, only: [:edit, :update, :show, :destroy]
 
-before_action :require_user, except: [:index, :show]
-
 before_action :require_same_user, only: [:edit, :update, :destroy]
+
+before_action :require_same_user2, only: [:show]
+
+before_action :require_admin, only: [:index]
+
+
+
+
 
 def index
 
 @articles = Article.paginate(page: params[:page], per_page: 5)
 
 end
+
+
+
 
 def new
 
@@ -59,6 +70,7 @@ end
 end
 
 def show
+    
 
 end
 
@@ -93,12 +105,42 @@ def require_same_user
 
 if current_user != @article.user and !current_user.admin?
 
-flash[:danger] = "You can only edit or delete your own articles"
+flash[:danger] = "You can only edit or delete your own projects"
 
-redirect_to root_path
+redirect_to user_path(current_user)
+
+end
+
+end
+
+
+def require_same_user2
+
+if current_user != @article.user and !current_user.admin?
+
+flash[:danger] = "You can only access your own projects"
+
+redirect_to user_path(current_user)
 
 end
 
 end
+
+
+def require_admin
+
+if logged_in? and !current_user.admin?
+
+flash[:danger] = "You can only access your own projects"
+
+redirect_to user_path(current_user)
+
+end
+
+end
+
+
+
+
 
 end
