@@ -31,7 +31,7 @@ if @user.save
 
 session[:user_id] = @user.id
 
-flash[:success] = "Welcome to the alpha blog #{@user.username}"
+flash[:success] = "Thank you for registering #{@user.username}"
 
 redirect_to user_path(@user)
 
@@ -51,7 +51,7 @@ def update
 
 if @user.update(user_params)
 
-flash[:success] = "Your account was updated successfully"
+flash[:success] = "Account settings were saved"
 
 redirect_to user_path
 
